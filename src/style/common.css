@@ -1,0 +1,13 @@
+*{
+  font-family: '微软雅黑';
+  padding: 0;
+  margin: 0;
+}
+li {
+  list-style: none;
+}
+
+.wrapper {
+  width: 70%;
+  margin: 0 auto;
+}
