@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
 
   // 当部署时必须启用base属性，base表示项目的入口位置
-  base: './',
+  // base: './',
 
   plugins: [vue()],
 
