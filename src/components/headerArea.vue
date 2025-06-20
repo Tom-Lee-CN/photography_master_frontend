@@ -14,11 +14,13 @@
       <div :class="{ 'header-center': true }">
         <div>
           <ul :class="{ 'tag-list': true }">
-            <li><a href="javascript:;">首页</a></li>
-            <li><a href="javascript:;">探索</a></li>
-            <li><a href="javascript:;">标签</a></li>
-            <li><a href="javascript:;">摄影师</a></li>
-            <li><a href="javascript:;">热门活动</a></li>
+            <li
+              v-for="(item, index) in tagList"
+              :key="index"
+              @click="changeTab"
+            >
+              <a href="javascript:;" :data-tabName="item">{{ item }}</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -28,6 +30,19 @@
 <script>
 export default {
   name: "headerArea",
+  data() {
+    return {
+      currentTab: "首页",
+      tagList: ["首页", "探索", "标签", "摄影师", "摄影商城"],
+    };
+  },
+
+  methods: {
+    changeTab: function (element) {
+      this.currentTab = element.target.getAttribute("data-tabName");
+      this.$emit("currentTabEvent", this.currentTab);
+    },
+  },
 };
 </script>
 
@@ -64,7 +79,7 @@ a {
   font-size: 1.2rem;
 }
 .header-center > div {
-  width: 70%;
+  width: 60%;
   margin: 0 auto;
 }
 .tag-list {
@@ -77,9 +92,14 @@ a {
 
 .tag-list a,
 .user-sgin {
+  display: inline-block;
   cursor: pointer;
   color: #bbbbbb;
   transition: color 0.3s;
+}
+.tag-list a {
+  width: 100%;
+  height: 100%;
 }
 
 .tag-list a:hover,
@@ -124,7 +144,7 @@ a {
   cursor: pointer;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   .header-center {
     display: none;
   }

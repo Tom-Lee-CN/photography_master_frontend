@@ -63,7 +63,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("../assets/iconfont/iconfont.css");
 
 .choiceness-title {

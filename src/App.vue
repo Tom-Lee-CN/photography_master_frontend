@@ -1,34 +1,39 @@
 <template>
-  <headerArea></headerArea>
-  <slideShow></slideShow>
-  <hotArea :hotInfo="hotInfo"></hotArea>
-  <div class="main-title"><span>精选</span></div>
-  <div class="main-box">
-    <choicenessArea :cityInfo="cityInfo"></choicenessArea>
-    <choicenessArea :cityInfo="cityInfo"></choicenessArea>
-    <choicenessArea :cityInfo="cityInfo"></choicenessArea>
-    <choicenessArea :cityInfo="cityInfo"></choicenessArea>
-    <hotArea :hotInfo="hotTagInfo"></hotArea>
+  <headerArea v-on:currentTabEvent="changeTab"></headerArea>
+  <div v-if="currentTab == '首页'">
+    <slideShow></slideShow>
+    <hotArea :hotInfo="hotInfo"></hotArea>
+    <div class="main-title"><span>精选</span></div>
+    <div class="main-box">
+      <choicenessArea :cityInfo="cityInfo"></choicenessArea>
+      <choicenessArea :cityInfo="cityInfo"></choicenessArea>
+      <choicenessArea :cityInfo="cityInfo"></choicenessArea>
+      <choicenessArea :cityInfo="cityInfo"></choicenessArea>
+      <hotArea :hotInfo="hotTagInfo"></hotArea>
+    </div>
+    <div class="footer-container">
+      注意！此网站为开源项目的DEMO展示，请勿将个人信息或其他重要数据上传至本网站！
+    </div>
   </div>
-  <div class="footer-container">
-    注意！此网站为开源项目的DEMO展示，请勿将个人信息或其他数据上传至本网站！
+  <div v-else-if="currentTab == '探索'">
+    <exploreArea></exploreArea>
   </div>
-  <!-- <div :style="{ height: '900px' }">1</div>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div v-else-if="currentTab == '标签'">
+    <tagArea></tagArea>
   </div>
-  <HelloWorld msg="Vite + Vue" /> -->
+  <div v-else-if="currentTab == '摄影师'">
+    <cameraMan></cameraMan>
+  </div>
+  <div v-else-if="currentTab == '摄影商城'">摄影商城</div>
 </template>
 <script>
 import headerArea from "./components/headerArea.vue";
 import slideShow from "./components/slideShow.vue";
 import hotArea from "./components/hotArea.vue";
 import choicenessArea from "./components/choicenessArea.vue";
+import exploreArea from "./components/exploreArea.vue";
+import tagArea from "./components/tagArea.vue";
+import cameraMan from "./components/cameraman.vue";
 export default {
   name: "app",
   components: {
@@ -36,10 +41,15 @@ export default {
     headerArea,
     hotArea,
     choicenessArea,
+    exploreArea,
+    tagArea,
+    cameraMan,
   },
 
   data() {
     return {
+      currentTab: "首页",
+
       cityInfo: {
         typeTitle: "自然",
         cityList: [
@@ -152,6 +162,12 @@ export default {
         ],
       },
     };
+  },
+
+  methods: {
+    changeTab(tabName) {
+      this.currentTab = tabName;
+    },
   },
 };
 </script>

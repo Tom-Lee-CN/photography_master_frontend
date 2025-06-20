@@ -36,7 +36,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("../assets/css/common.css");
 
 .container {
