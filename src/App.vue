@@ -1,5 +1,14 @@
 <template>
-  <headerArea v-on:currentTabEvent="changeTab"></headerArea>
+  <dialogBox v-if="isDialog" :dialogInfo="dialogInfo"></dialogBox>
+  <loginView
+    v-if="loginEvent"
+    v-on:closeLoginBox="loginEvent = false"
+    v-on:addDialog="addDialog"
+  ></loginView>
+  <headerArea
+    v-on:currentTabEvent="changeTab"
+    v-on:loginEvent="loginEvent = true"
+  ></headerArea>
   <div v-if="currentTab == '首页'">
     <slideShow></slideShow>
     <hotArea :hotInfo="hotInfo"></hotArea>
@@ -24,7 +33,7 @@
   <div v-else-if="currentTab == '摄影师'">
     <cameraMan></cameraMan>
   </div>
-  <div v-else-if="currentTab == '摄影商城'">摄影商城</div>
+  <div v-else-if="currentTab == '预留板块'"></div>
 </template>
 <script>
 import headerArea from "./components/headerArea.vue";
@@ -34,6 +43,8 @@ import choicenessArea from "./components/choicenessArea.vue";
 import exploreArea from "./components/exploreArea.vue";
 import tagArea from "./components/tagArea.vue";
 import cameraMan from "./components/cameraman.vue";
+import loginView from "./components/login.vue";
+import dialogBox from "./components/detailComponets/dialogBox.vue";
 export default {
   name: "app",
   components: {
@@ -44,12 +55,19 @@ export default {
     exploreArea,
     tagArea,
     cameraMan,
+    loginView,
+    dialogBox,
   },
 
   data() {
     return {
       currentTab: "首页",
-
+      loginEvent: false,
+      isDialog: false,
+      dialogInfo: {
+        text: "默认信息",
+        colorType: "Success",
+      },
       cityInfo: {
         typeTitle: "自然",
         cityList: [
@@ -167,6 +185,15 @@ export default {
   methods: {
     changeTab(tabName) {
       this.currentTab = tabName;
+    },
+
+    addDialog(data) {
+      this.dialogInfo = { ...data };
+      this.isDialog = true;
+      let tempThis = this;
+      setTimeout(function () {
+        tempThis.isDialog = false;
+      }, 3000);
     },
   },
 };

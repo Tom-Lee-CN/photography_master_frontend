@@ -9,7 +9,9 @@
           <input type="text" placeholder="请输入搜索内容" maxlength="40" />
           <i :class="{ iconfont: true, 'icon-search': true }"></i>
         </span>
-        <span :class="{ 'user-sgin': true }">登录/注册</span>
+        <span :class="{ 'user-sgin': true }" @click="loginEvent"
+          >登录/注册</span
+        >
       </div>
       <div :class="{ 'header-center': true }">
         <div>
@@ -33,7 +35,7 @@ export default {
   data() {
     return {
       currentTab: "首页",
-      tagList: ["首页", "探索", "标签", "摄影师", "摄影商城"],
+      tagList: ["首页", "探索", "标签", "摄影师", "预留板块"],
     };
   },
 
@@ -41,6 +43,9 @@ export default {
     changeTab: function (element) {
       this.currentTab = element.target.getAttribute("data-tabName");
       this.$emit("currentTabEvent", this.currentTab);
+    },
+    loginEvent() {
+      this.$emit("loginEvent");
     },
   },
 };
